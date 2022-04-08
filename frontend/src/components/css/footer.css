@@ -1,0 +1,36 @@
+.footer {
+  /* text-decoration-color: green; */
+  color: black;
+  background-color: lightgreen;
+}
+
+.link-color {
+  color: black;
+  text-decoration: none;
+}
+
+.link-color:hover {
+  color: rgb(44, 41, 204);
+}
+
+.footer-text > p {
+  padding-top: 20px;
+  color: black;
+  margin-bottom: 0;
+}
+
+/* **************************************************************** */
+
+.form-outline .form-control {
+  color: black;
+}
+
+.form-outline > input {
+  color: black;
+}
+
+.form-outline .form-control > :-ms-input-placeholder {
+  color: black;
+}
+/* **************************************************************** */
+/* **************************************************************** */
