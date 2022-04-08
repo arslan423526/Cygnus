@@ -1,0 +1,1 @@
+web: gunicorn ePlaza.wsgi --log-file -
