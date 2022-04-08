@@ -1,1 +1,1 @@
-web: gunicorn ePlaza.wsgi --log-file -
+web: gunicorn Cygnus.wsgi --log-file -
