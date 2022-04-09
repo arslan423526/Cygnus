@@ -55,14 +55,24 @@ function OrderScreen({match, history}) {
             dispatch({type: ORDER_DELIVER_RESET})
 
             dispatch(getOrderDetails(orderId))
+        } else if (!order.isPaid) {
+            if (!window.paypal) {
+                addPayPalScript()
+            } else {
+                setSdkReady(true)
+            }
         }
     }, [dispatch, order, orderId, successPay, successDeliver])
 
 
-    const successPaymentHandler = (e, paymentResult) => {
-        e.preventDefault()
+    const successPaymentHandler = (paymentResult) => {
         dispatch(payOrder(orderId, paymentResult))
     }
+
+    //  const successPaymentHandler = (e, paymentResult) => {
+    //     e.preventDefault()
+    //     dispatch(payOrder(orderId, paymentResult))
+    // }
 
     const deliverHandler = () => {
         dispatch(deliverOrder(order))
@@ -161,7 +171,7 @@ function OrderScreen({match, history}) {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Shipping:</Col>
-                                    <Col>Rs. {order.shippingPrice.substr(0, order.shippingPrice.length-3)}</Col>
+                                    <Col>Rs. {order.shippingPrice.substr(0, order.shippingPrice.length - 3)}</Col>
                                 </Row>
                             </ListGroup.Item>
 
@@ -175,33 +185,33 @@ function OrderScreen({match, history}) {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Total:</Col>
-                                    <Col>Rs. {order.totalPrice.substr(0, order.totalPrice.length-3)}</Col>
+                                    <Col>Rs. {order.totalPrice.substr(0, order.totalPrice.length - 3)}</Col>
                                 </Row>
                             </ListGroup.Item>
 
 
                             {!order.isPaid && (
 
-                                <Button
-                                    type='button'
-                                    className='btn btn-block mt-2'
-                                    onClick={(e) => successPaymentHandler(e, true)}
-                                >
-                                    Mark As Paid
-                                </Button>
+                                // <Button
+                                //     type='button'
+                                //     className='btn btn-block mt-2'
+                                //     onClick={(e) => successPaymentHandler(e, true)}
+                                // >
+                                //     Mark As Paid
+                                // </Button>
 
-                                // <ListGroup.Item>
-                                //     {loadingPay && <Loader/>}
-                                //
-                                //     {!sdkReady ? (
-                                //         <Loader/>
-                                //     ) : (
-                                //         <PayPalButton
-                                //             amount={order.totalPrice}
-                                //             onSuccess={successPaymentHandler}
-                                //         />
-                                //     )}
-                                // </ListGroup.Item>
+                                <ListGroup.Item>
+                                    {loadingPay && <Loader/>}
+
+                                    {!sdkReady ? (
+                                        <Loader/>
+                                    ) : (
+                                        <PayPalButton
+                                            amount={order.totalPrice}
+                                            onSuccess={successPaymentHandler}
+                                        />
+                                    )}
+                                </ListGroup.Item>
                             )}
                         </ListGroup>
                         {loadingDeliver && <Loader/>}

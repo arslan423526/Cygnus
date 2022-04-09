@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import React, {useState, useEffect} from 'react'
+import {Form, Button, Col} from 'react-bootstrap'
+import {useDispatch, useSelector} from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
-import { savePaymentMethod } from '../actions/cartActions'
+import {savePaymentMethod} from '../actions/cartActions'
 
-function PaymentScreen({ history }) {
+function PaymentScreen({history}) {
 
     const cart = useSelector(state => state.cart)
-    const { shippingAddress } = cart
+    const {shippingAddress} = cart
 
     const dispatch = useDispatch()
 
-    const [paymentMethod, setPaymentMethod] = useState('Cash On Delivery')
+    const [paymentMethod, setPaymentMethod] = useState('Credit Cart')
 
     if (!shippingAddress.address) {
         history.push('/shipping')
@@ -26,7 +26,7 @@ function PaymentScreen({ history }) {
 
     return (
         <FormContainer>
-            <CheckoutSteps step1 step2 step3 />
+            <CheckoutSteps step1 step2 step3/>
 
             <Form onSubmit={submitHandler}>
                 <Form.Group>
@@ -34,7 +34,7 @@ function PaymentScreen({ history }) {
                     <Col>
                         <Form.Check
                             type='radio'
-                            label='Cash On Delivery'
+                            label='Credit Cart'
                             id='cod'
                             name='paymentMethod'
                             checked
